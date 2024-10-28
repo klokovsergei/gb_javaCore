@@ -1,8 +1,8 @@
 package lesson3.model;
 
 public class Manager extends Employee{
-    public Manager(String name, String midName, String surName, String phone, int salary, String birthday) {
-        super(name, midName, surName, "Manager", phone, salary, birthday);
+    public Manager(Gender gender,String name, String midName, String surName, String phone, int salary, String birthday) {
+        super(gender, name, midName, surName, "Manager", phone, salary, birthday);
     }
     public static void increaseSalary(Employee person, int sizeIncrease){
         if (!(person instanceof Manager) && sizeIncrease > 0) {

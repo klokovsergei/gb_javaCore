@@ -11,20 +11,27 @@ public class Employee implements Comparable {
     protected String position;
     protected String phone;
     protected int salary;
-    protected String birthday;
+    protected LocalDate birthday;
+    protected Gender gender;
 
-    public Employee(String name, String midName, String surName, String position,
+    public Employee(Gender gender, String name, String midName, String surName, String position,
                     String phone, int salary, String birthday) {
+        this.gender = gender;
         this.name = name;
         this.midName = midName;
         this.surName = surName;
         this.position = position;
         this.phone = phone;
         this.salary = salary;
-        this.birthday = birthday;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.birthday = LocalDate.parse(birthday, formatter);
     }
 
-    public String getBirthday() {
+    public String getName(){
+        return name;
+    }
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -34,6 +41,14 @@ public class Employee implements Comparable {
 
     public int getSalary() {
         return salary;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -51,16 +66,13 @@ public class Employee implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        String birthdayObj2;
+        LocalDate birthdayObj2;
         if (o instanceof Employee)
             birthdayObj2 = ((Employee) o).getBirthday();
         else
             throw new RuntimeException("Не подходящий класс для сравнения");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bdObj1 = LocalDate.parse(this.birthday, formatter);
-        LocalDate bdObj2 = LocalDate.parse(birthdayObj2, formatter);
 
-        return (int)(bdObj1.toEpochDay() - bdObj2.toEpochDay());
+        return (int)(this.birthday.toEpochDay() - birthdayObj2.toEpochDay());
     }
 
 }
